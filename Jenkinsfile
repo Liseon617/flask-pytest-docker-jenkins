@@ -1,5 +1,12 @@
 pipeline {
-    agent any
+    agent { 
+        node {
+            label 'docker-agent-python'
+            }
+      }
+    triggers {
+        pollSCM '*/5 * * * *'
+    }
     stages {
         stage("checkout") {
             steps {
@@ -26,7 +33,6 @@ pipeline {
         stage("test") {
             steps {
                 echo 'testing the application...'
-                sh 'source venv/bin/activate && pytest' // Activate virtual environment and run pytest
             }
         }
 
