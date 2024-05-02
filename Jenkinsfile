@@ -15,13 +15,13 @@ pipeline {
     }
     
     stage("Install dependencies") {
-      steps {
-        script {
-          docker.image('python:latest').inside('-v .') {
-            sh 'pip install -r requirements.txt'
-          }
+        steps {
+            script {
+            docker.image('python:latest').inside('-v .') {
+                sh 'pip install -r requirements.txt'
+            }
+            }
         }
-      }
     }
     
     stage("build") {
