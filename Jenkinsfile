@@ -1,17 +1,31 @@
 pipeline {
-  agent any
-  stages {
+ agent {
+    docker {
+      image 'python:latest'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+ }
+  
+ stages {
     stage("checkout") {
       steps {
         checkout scmGit(branches: [[name: '*/main'], [name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: '35aebad0-dc13-47a1-a6ae-025d5d402529', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git']])
       }
     }
     
+    stage("Install dependencies") {
+      steps {
+        script {
+          docker.image('python:latest').inside('-v .') {
+            sh 'pip install -r requirements.txt'
+          }
+        }
+      }
+    }
+    
     stage("build") {
       steps {
         echo 'building the application...'
-        git branch: 'main', credentialsId: '35aebad0-dc13-47a1-a6ae-025d5d402529', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
-        sh 'pip3 install -r requirements.txt'
         sh 'python3 main.py'
         script {
           def test = 2 + 2 > 3 ? 'cool' : 'not cool'
@@ -31,5 +45,5 @@ pipeline {
         echo 'deploying the application...'
       }
     }
-  }
+ }
 }
