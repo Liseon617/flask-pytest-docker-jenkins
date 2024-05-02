@@ -16,10 +16,11 @@ pipeline {
     
     stage("Install dependencies") {
         steps {
+            git branch: 'main', credentialsId: '35aebad0-dc13-47a1-a6ae-025d5d402529', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
             script {
-            docker.image('python:latest').inside('-v .') {
-                sh 'pip install -r requirements.txt'
-            }
+                docker.image('python:latest').inside('-v .') {
+                    sh 'pip install -r requirements.txt'
+                }
             }
         }
     }
