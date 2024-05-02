@@ -11,6 +11,7 @@ pipeline {
       steps {
         echo 'building the application...'
         git branch: 'main', credentialsId: '35aebad0-dc13-47a1-a6ae-025d5d402529', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+        sh 'pip install -r requirements.txt'
         sh 'python3 main.py'
         script {
           def test = 2 + 2 > 3 ? 'cool' : 'not cool'
