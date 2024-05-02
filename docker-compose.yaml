@@ -1,0 +1,15 @@
+services:
+  flask-app:
+    build: .
+    ports:
+      - "80:80"
+
+  test:
+    build: .
+    command: python3 -m pytest ./tests
+    depends_on:
+      - flask-app
+
+networks:
+  default: 
+    name: demo_python_flask
