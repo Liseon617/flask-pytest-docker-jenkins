@@ -5,7 +5,7 @@ pipeline {
             }
       }
     triggers {
-        pollSCM '*/5 * * * *'
+        pollSCM 'H */2 * * *'
     }
     stages {
         stage("checkout") {
@@ -20,10 +20,6 @@ pipeline {
                 echo 'building the application...'
                 git branch: 'main', credentialsId: '743a5bc4-53c9-44f1-a813-3049691463ac', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
                 sh 'pip install -r requirements.txt' // Install requirements within the virtual environment
-                script {
-                    def test = 2 + 2 > 3 ? 'cool' : 'not cool'
-                    echo test
-                }
             }
         }
 
