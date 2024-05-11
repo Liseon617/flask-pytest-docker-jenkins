@@ -1,8 +1,10 @@
-FROM jenkins/agent:alpine-jdk21
+FROM jenkins/jenkins:latest
 
 USER root
 
-RUN apk add python3
-RUN apk add py3-pip
+# Install Python3 and pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
 
 USER jenkins
