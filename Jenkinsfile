@@ -12,7 +12,7 @@ pipeline {
         stage("checkout") {
             steps {
                 echo 'Checking out the application...'
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '3af2009d-e30c-4a0a-afaf-97914a2062c4', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git']])
+                checkout scm
             }
         }
 
