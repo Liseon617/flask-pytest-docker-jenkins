@@ -12,10 +12,11 @@ pipeline {
         }
 
         stage('Build') {
+            agent {
+                docker { image 'python:3.8-buster' }
+            }
             steps {
-                echo 'Building the application...'
-                sh 'python3 -m venv venv'
-                sh 'source venv/bin/activate && pip install -r requirements.txt'
+                sh 'python -m pip install -r requirements.txt'
             }
         }
         stage('Test') {
