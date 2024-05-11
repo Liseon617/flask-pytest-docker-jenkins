@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.8-buster'
+            image 'python:3.10.4-slim'
             args '-u root' // This allows running commands as root user
         }
     }
