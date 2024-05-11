@@ -11,21 +11,20 @@ pipeline {
             }
         }
 
-        stage("build") {
+        stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh 'pip3 install -r requirements.txt'
-                sh 'python3 main.py' // Install requirements within the virtual environment
+                sh 'python3 -m venv venv'
+                sh 'source venv/bin/activate && pip install -r requirements.txt'
             }
         }
-
-        stage("test") {
+        stage('Test') {
             steps {
                 echo 'Testing the application...'
-                sh 'python3 -m pytest ./tests'
+                sh 'source venv/bin/activate && python3 -m pytest'
             }
         }
-
+        // Add other stages as needed
         stage("deploy") {
             steps {
                 echo 'Deploying the application...'
