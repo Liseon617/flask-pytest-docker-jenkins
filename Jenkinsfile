@@ -14,7 +14,7 @@ pipeline {
         stage("build") {
             steps {
                 echo 'Building the application...'
-                sh 'pip install -r requirements.txt' // Install requirements within the virtual environment
+                sh 'python3 main.py' // Install requirements within the virtual environment
             }
         }
 
