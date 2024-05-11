@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo 'Building the application...'
                 git branch: 'main', credentialsId: '43b938d1-62fb-42d5-b195-120d3b362988', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
-                sh 'python -m pip install -r requirements.txt'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
         stage('Test') {
