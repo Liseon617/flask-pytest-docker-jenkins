@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            label 'docker'
-            image 'python:3.10'
-        }
-    }
+    agent any
     triggers {
         pollSCM 'H */2 * * *'
     }
