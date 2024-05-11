@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.8-buster'
-            args '-u root' // This allows running commands as root user
-        }
-    }
+    agent any
     triggers {
         pollSCM 'H */2 * * *'
     }
@@ -19,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh 'python -m pip install -r requirements.txt'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
         stage('Test') {
