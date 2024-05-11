@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'python:3.10.4-slim'
-            args '-u root' // This allows running commands as root user
         }
     }
     triggers {
@@ -19,13 +18,15 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
+                git branch: 'main', credentialsId: '43b938d1-62fb-42d5-b195-120d3b362988', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
                 sh 'python -m pip install -r requirements.txt'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing the application...'
-                sh 'source venv/bin/activate && python3 -m pytest'
+                git branch: 'main', credentialsId: '43b938d1-62fb-42d5-b195-120d3b362988', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+                sh 'python3 -m pytest'
             }
         }
         // Add other stages as needed

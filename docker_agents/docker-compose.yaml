@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jenkins-demo
+    privileged: true
+    user: root
     restart: on-failure
     networks:
       - jenkins
