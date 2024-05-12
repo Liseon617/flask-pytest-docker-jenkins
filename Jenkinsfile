@@ -32,18 +32,10 @@ pipeline {
                 sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
             }
         }
-        stage('Ensure Container is Running') {
-            steps {
-                sh script: "docker start ${JOB_NAME}"
-                // Adding sleep to allow the container to start properly
-                sh 'sleep 5'
-            }
-        }
         stage('Run Pytest in Docker Container') {
             steps {
-                // Checking container status before executing pytest
+                sh 'docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test'
                 sh 'docker ps -a'
-                // Executing pytest only if the container is running
                 sh script: 'docker inspect -f "{{.State.Running}}" ${JOB_NAME} | grep true && docker exec ${JOB_NAME} python3 -m pytest || echo "Container not running"'
             }
         }
