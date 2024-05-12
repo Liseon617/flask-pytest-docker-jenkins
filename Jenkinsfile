@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '612cdbf6-7518-4129-ae40-cc188484a2bc', url: 'https://github.com/Liseon617/demo-flask.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '612cdbf6-7518-4129-ae40-cc188484a2bc', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.giti']])
             }
         }
         stage ('Stop previous running container'){
