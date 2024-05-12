@@ -35,8 +35,6 @@ pipeline {
         stage('Run Pytest in Docker Container') {
             steps {
                 sh 'docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test'
-                sh 'docker ps -a'
-                sh script: 'docker inspect -f "{{.State.Running}}" ${JOB_NAME} | grep true && docker exec ${JOB_NAME} python3 -m pytest || echo "Container not running"'
             }
         }
         stage('Push To DockerHub') {
