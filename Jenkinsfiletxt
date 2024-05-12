@@ -1,0 +1,40 @@
+pipeline {
+    agent {
+        docker {
+            image 'devopsjourney1/myjenkinsagents:python'
+            reuseNode true
+        }
+    }
+    triggers {
+        pollSCM 'H */2 * * *'
+    }
+    stages {
+        stage("checkout") {
+            steps {
+                echo 'Checking out the application...'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                git branch: 'main', credentialsId: '43b938d1-62fb-42d5-b195-120d3b362988', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+                sh 'python -m pip install -r requirements.txt'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing the application...'
+                git branch: 'main', credentialsId: '43b938d1-62fb-42d5-b195-120d3b362988', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+                sh 'python3 -m pytest'
+            }
+        }
+        // Add other stages as needed
+        stage("deploy") {
+            steps {
+                echo 'Deploying the application...'
+            }
+        }
+    }
+}
