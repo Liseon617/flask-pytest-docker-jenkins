@@ -35,6 +35,7 @@ pipeline {
         }
         stage('Run Pytest in Docker Container') {
             steps {
+                sh script: "docker start ${JOB_NAME}"
                 sh script: "docker exec ${JOB_NAME} python3 -m pytest"
             }
         }
