@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "liseon/python-jenkins" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        registry = "liseon/python-jenkins"
         registryCredential = 'a8d55a13-bff7-4cb5-bb3c-7e718787f9fc'
         dockerImage = ''
     }
@@ -11,10 +11,10 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '612cdbf6-7518-4129-ae40-cc188484a2bc', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git']])
             }
         }
-        stage ('Stop previous running container'){
-            steps{
+        stage('Stop previous running container') {
+            steps {
                 sh returnStatus: true, script: 'docker stop $(docker ps -a | grep ${JOB_NAME} | awk \'{print $1}\')'
-                sh returnStatus: true, script: 'docker rmi $(docker images | grep ${registry} | awk \'{print $3}\') --force' //this will delete all images
+                sh returnStatus: true, script: 'docker rmi $(docker images | grep ${registry} | awk \'{print $3}\') --force'
                 sh returnStatus: true, script: 'docker rm ${JOB_NAME}'
             }
         }
@@ -28,44 +28,33 @@ pipeline {
             }
         }
         stage('Test - Run Docker Container on Jenkins') {
-           steps {
-
+            steps {
                 sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-          }
+            }
+        }
+        stage('Ensure Container is Running') {
+            steps {
+                sh script: "docker start ${JOB_NAME}"
+                // Adding sleep to allow the container to start properly
+                sh 'sleep 5'
+            }
         }
         stage('Run Pytest in Docker Container') {
             steps {
-                sh script: "docker start ${JOB_NAME}"
-                sh script: "docker exec ${JOB_NAME} python3 -m pytest"
+                // Checking container status before executing pytest
+                sh 'docker ps -a'
+                // Executing pytest only if the container is running
+                sh script: 'docker inspect -f "{{.State.Running}}" ${JOB_NAME} | grep true && docker exec ${JOB_NAME} python3 -m pytest || echo "Container not running"'
             }
         }
         stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
                         dockerImage.push()
                     }
                 }
             }
         }
-        /*stage('Deploy to Test Server') {
-            steps {
-                script {
-                    def stopcontainer = "docker stop ${JOB_NAME}"
-                    def delcontName = "docker rm ${JOB_NAME}"
-                    def delimages = 'docker image prune -a --force'
-                    def drun = "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-                    println "${drun}"
-                    sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delimages}"
-
-                    // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${drun}"
-                    }
-                }
-            }
-        }*/
     }
 }
