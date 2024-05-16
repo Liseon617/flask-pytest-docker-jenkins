@@ -71,9 +71,9 @@ pipeline {
                         git branch: 'main', credentialsId: 'github_credentials_personal', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
 
                     // Assuming you have a script to configure Nginx and serve the application: Deployment
+                    }
                 }
             }
         }
-
     }
 }
