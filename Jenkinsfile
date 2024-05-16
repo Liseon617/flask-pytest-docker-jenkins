@@ -35,7 +35,7 @@ pipeline {
         stage('Run Pytest in Docker Container') {
             steps {
                 script {
-                    sh "sh 'docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
+                    sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
                 }
             }
         }
