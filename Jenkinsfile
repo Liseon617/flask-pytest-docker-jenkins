@@ -22,21 +22,14 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image and Docker Container') {
             steps {
                 script {
                     img = registry + ":${env.BUILD_ID}"
                     println ("${img}")
                     dockerImage = docker.build("${img}")
-                }
-            }
-        }
-
-        stage('Run Pytest in Docker Container') {
-            steps {
-                script {
                     sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
-                } 
+                }
             }
         }
 
