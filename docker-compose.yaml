@@ -3,16 +3,20 @@ services:
     build: .
     ports:
       - "80:80"
+    volumes:
+      - .:/app  # Mount the current directory into the container's /app directory
 
   test:
     build: .
     command: >
-      sh -c "python3 -m pytest ./tests --cov=. --junitxml=./xmlReport/output.xml && 
+      sh -c "python3 -m pytest /app --cov=/app --junitxml=/app/xmlReport/output.xml && 
              python3 -m coverage xml"
     depends_on:
       - flask-app
     networks:
       - demo_python_flask
+    volumes:
+      - .:/app  # Mount the current directory into the container's /app directory
 
 networks:
   demo_python_flask:
