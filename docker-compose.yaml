@@ -2,7 +2,7 @@ services:
   flask-app:
     build: .
     ports:
-      - "80:80"
+      - "81:80"
     volumes:
       - .:/app  # Mount the current directory into the container's /app directory
 
