@@ -31,21 +31,6 @@ pipeline {
                     sh "docker compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
                 }
             }
-            post{
-                always{
-                    step([$class: 'CoberturaPublisher',
-                                   autoUpdateHealth: false,
-                                   autoUpdateStability: false,
-                                   coberturaReportFile: 'coverage.xml',
-                                   failNoReports: false,
-                                   failUnhealthy: false,
-                                   failUnstable: false,
-                                   maxNumberOfBuilds: 10,
-                                   onlyStable: false,
-                                   sourceEncoding: 'ASCII',
-                                   zoomCoverageChart: false])
-                }
-            }
         }
 
         stage("Publish Coverage Results") {
