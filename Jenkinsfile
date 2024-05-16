@@ -28,7 +28,7 @@ pipeline {
                     // img = registry + ":${env.BUILD_ID}"
                     // println ("${img}")
                     // dockerImage = docker.build("${img}")
-                    sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
+                    sh "docker compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
                 }
             }
         }
