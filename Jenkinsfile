@@ -25,9 +25,9 @@ pipeline {
         stage('Build Docker Image and Docker Container') {
             steps {
                 script {
-                    img = registry + ":${env.BUILD_ID}"
-                    println ("${img}")
-                    dockerImage = docker.build("${img}")
+                    // img = registry + ":${env.BUILD_ID}"
+                    // println ("${img}")
+                    // dockerImage = docker.build("${img}")
                     sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
                 }
             }
