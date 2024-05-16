@@ -46,11 +46,11 @@ pipeline {
             }
         }
 
-        stage("Deploy") {
-            steps {
-                // copy content to deployment directory
-                // sh 'cp * /var/www/html'
-            }
-        }
+        // stage("Deploy") {
+        //     steps {
+        //         // copy content to deployment directory
+        //         // sh 'cp * /var/www/html'
+        //     }
+        // }
     }
 }
