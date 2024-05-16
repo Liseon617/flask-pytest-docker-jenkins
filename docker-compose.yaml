@@ -7,7 +7,8 @@ services:
   test:
     build: .
     command: >
-      sh -c "python3 -m pytest ./tests --cov=. --junitxml=./xmlReport/output.xml && python3 -m coverage xml"
+      sh -c "python3 -m pytest ./tests --cov=. --junitxml=./xmlReport/output.xml && 
+             python3 -m coverage xml"
     depends_on:
       - flask-app
     networks:
