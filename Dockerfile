@@ -4,14 +4,17 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy only the requirements file to the container
+COPY requirements.txt .
 
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the application code into the container
+COPY . .
+
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
-# Run main.py when the container launches
-CMD ["python", "main.py", "pytest", "./tests", "--cov=.", "--junitxml=./xmlReport/output.xml"]
+# Run the Flask application when the container launches
+CMD ["python", "main.py"]
