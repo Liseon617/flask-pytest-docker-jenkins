@@ -14,12 +14,14 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_credentials_personal', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git']])
             }
         }
+        
         stage('Stop previous running container') {
             steps {
                 sh returnStatus: true, script: 'docker stop $(docker ps -a | grep ${JOB_NAME} | awk \'{print $1}\')'
                 sh returnStatus: true, script: 'docker rm ${JOB_NAME}'
             }
         }
+
         stage('Build Image') {
             steps {
                 script {
@@ -29,9 +31,16 @@ pipeline {
                 }
             }
         }
+
         stage('Run Pytest in Docker Container') {
             steps {
                 sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test -d --name ${JOB_NAME} -p 5000:5000 ${img}"
+            }
+        }
+
+        stage("deploy") {
+            steps {
+                echo 'Deploying the application...'
             }
         }
     }
