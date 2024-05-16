@@ -56,24 +56,24 @@ pipeline {
         }
 
 
-        stage('Deploy') {
-            steps {
-                script {
-                    def repoExists = fileExists(dir)
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             def repoExists = fileExists(dir)
                     
-                    if (repoExists) {
-                        // Repository exists, pull latest changes
-                        dir(repoDir) {
-                            sh "git pull"
-                        }
-                    } else {
-                        // Repository doesn't exist, clone it
-                        git branch: 'main', credentialsId: 'github_credentials_personal', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+        //             if (repoExists) {
+        //                 // Repository exists, pull latest changes
+        //                 dir(repoDir) {
+        //                     sh "git pull"
+        //                 }
+        //             } else {
+        //                 // Repository doesn't exist, clone it
+        //                 git branch: 'main', credentialsId: 'github_credentials_personal', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
 
-                    // Assuming you have a script to configure Nginx and serve the application: Deployment
-                    }
-                }
-            }
-        }
+        //             // Assuming you have a script to configure Nginx and serve the application: Deployment
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
