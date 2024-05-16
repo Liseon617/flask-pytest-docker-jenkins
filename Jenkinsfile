@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-                    sh "docker logs demo-application > test_output.log"
+                    sh "docker logs ${JOB_NAME} > test_output.log"
                     sh "cat test_output.log"
                 }
             }
