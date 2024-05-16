@@ -31,6 +31,21 @@ pipeline {
                     sh "docker compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
                 }
             }
+            post{
+                always{
+                    step([$class: 'CoberturaPublisher',
+                                   autoUpdateHealth: false,
+                                   autoUpdateStability: false,
+                                   coberturaReportFile: 'coverage.xml',
+                                   failNoReports: false,
+                                   failUnhealthy: false,
+                                   failUnstable: false,
+                                   maxNumberOfBuilds: 10,
+                                   onlyStable: false,
+                                   sourceEncoding: 'ASCII',
+                                   zoomCoverageChart: false])
+                }
+            }
         }
 
         stage("Publish Coverage Results") {
@@ -41,11 +56,24 @@ pipeline {
         }
 
 
-        // stage("Deploy") {
-        //     steps {
-        //         // copy content to deployment directory
-        //         // sh 'cp * /var/www/html'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script {
+                    def repoExists = fileExists(dir)
+                    
+                    if (repoExists) {
+                        // Repository exists, pull latest changes
+                        dir(repoDir) {
+                            sh "git pull"
+                        }
+                    } else {
+                        // Repository doesn't exist, clone it
+                        git branch: 'main', credentialsId: 'github_credentials_personal', url: 'https://github.com/Liseon617/flask-pytest-docker-jenkins.git'
+
+                    // Assuming you have a script to configure Nginx and serve the application: Deployment
+                }
+            }
+        }
+
     }
 }
