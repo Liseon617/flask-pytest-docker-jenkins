@@ -36,14 +36,20 @@ pipeline {
             steps {
                 script {
                     sh "docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from test"
-                }
+                } 
             }
         }
 
-
-        stage("deploy") {
+        stage("Publish Coverage Results") {
             steps {
-                echo 'Deploying the application...'
+                cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'coverage*.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                // copy content to deployment directory
+                // sh 'cp * /var/www/html'
             }
         }
     }

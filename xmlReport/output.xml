@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="0.124" timestamp="2024-05-17T00:27:26.191804" hostname="Brian_Laptop"><testcase classname="" name="tests.test_demo_api_endpoints" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\blzll\OneDrive\Desktop\Summer 2024\Jenkins\flask-pytest-docker-jenkins\tests\test_demo_api_endpoints.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\blzll\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_demo_api_endpoints.py:1: in &lt;module&gt;
+    from main import app
+E   ModuleNotFoundError: No module named 'main'</error></testcase><testcase classname="" name="tests.test_home_route" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\blzll\OneDrive\Desktop\Summer 2024\Jenkins\flask-pytest-docker-jenkins\tests\test_home_route.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\blzll\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_home_route.py:1: in &lt;module&gt;
+    from main import app
+E   ModuleNotFoundError: No module named 'main'</error></testcase></testsuite></testsuites>
