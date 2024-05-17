@@ -20,3 +20,4 @@ def test_post_api_endpoint():
         assert response.status_code == 200
         json_response = response.get_json()
         assert json_response == {'message': 'Nice to meet you, Brian!'}
+        
