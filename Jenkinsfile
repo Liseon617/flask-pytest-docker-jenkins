@@ -39,6 +39,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
+                echo "Deployment complete."
                 // Assuming you have a script to configure Nginx and serve the application: Deployment
             }
         }
