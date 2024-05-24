@@ -1,13 +1,9 @@
 pipeline {
     environment {
         registry = "liseon/python-jenkins"
-        registryCredential = 'docker-creds'
         dockerImage = ''
     }
     agent any
-    // triggers {
-    //     pollSCM 'H */2 * * *'
-    // }
     stages {
         stage('checkout') {
             steps {
