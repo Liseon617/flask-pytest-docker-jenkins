@@ -39,9 +39,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    // Assuming you have a script to configure Nginx and serve the application: Deployment
-                }
+                // Assuming you have a script to configure Nginx and serve the application: Deployment
             }
         }
     }
