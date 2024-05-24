@@ -41,7 +41,6 @@ pipeline {
             steps {
                 script {
                     // Assuming you have a script to configure Nginx and serve the application: Deployment
-                    }
                 }
             }
         }
