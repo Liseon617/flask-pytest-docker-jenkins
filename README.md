@@ -65,6 +65,9 @@ This stage involves running various tests to ensure the project is fully tested.
 ### Deploy Stage
 This stage handles the deployment of the project, fulfilling the Continuous Deployment (CD) process.
 
+### (Optional) Post Block
+The post block is used to handle actions that should be taken after the pipeline execution. It can include three common conditions: `always{}`, `success{}`, and `failure{}`.
+
 #### Configuration:
 - Deploy using Nginx for application deployment or pull from Docker Hub.
 - Customize deployment steps according to user specifications.
