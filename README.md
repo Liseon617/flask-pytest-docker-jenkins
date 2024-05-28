@@ -34,8 +34,7 @@ Ensure you have the following software tools installed:
 - MacOS: [Service guide](https://www.jenkins.io/doc/book/installing/macos/)
 - Linux: [Service guide](https://www.jenkins.io/doc/book/installing/linux/)
 
-#### Terraform + Azure VM environment
-reference this [guide](https://docs.google.com/document/d/1V13yVvlGjnnr_MeRa6ydn9yeDXzCmYuBqHHFOziYqHw/edit#heading=h.hnstmjjlgnbw)
+#### Terraform + Azure VM environment: reference this [guide](https://docs.google.com/document/d/1V13yVvlGjnnr_MeRa6ydn9yeDXzCmYuBqHHFOziYqHw/edit#heading=h.hnstmjjlgnbw)
 
 ## Jenkins Configuration
 
